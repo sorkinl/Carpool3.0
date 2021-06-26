@@ -5,7 +5,6 @@ import FrontPage from "./components/FrontPage/FrontPage";
 import Navbar from "./components/Navbar/Navbar";
 import { Switch, Route, BrowserRouter as Router, withRouter } from "react-router-dom";
 
-
 const Routers = () =>{
   return(
     <Switch>
