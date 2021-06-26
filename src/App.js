@@ -6,10 +6,13 @@ import Navbar from "./components/Navbar/Navbar";
 import { Switch, Route, BrowserRouter as Router, withRouter } from "react-router-dom";
 
 
-const Routes = () =>{
-  <Switch>
-    <Route path ="/"  exact component ={FrontPage}/>
-  </Switch>
+const Routers = () =>{
+  return(
+    <Switch>
+      <Navbar/>
+      <Route path ="/"  exact component ={FrontPage}/>
+    </Switch>
+  )
 }
 
 
