@@ -1,3 +1,24 @@
+# Instructions
+
+Install node on your laptop https://nodejs.org/en/download/
+
+In the terminal check that node is installed by running 
+
+`node -v`
+`npm -v`
+
+If the commands return the version number, then you are set.
+
+## Setting up the project
+Open the terminal in the project folder. In the terminal run
+
+`npm install`
+
+This will install all the packages the project currently uses, including react-bootstrap. To start the project run
+
+`npm start`
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
