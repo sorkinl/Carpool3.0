@@ -13,6 +13,10 @@
   }
 }
 
+.background-dark {
+  background-color: #212529 !important;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -24,6 +28,20 @@
   color: white;
 }
 
+.vh-100 {
+  height: 100vh;
+  overflow: none;
+}
+@media (min-width: 768px) {
+  .float-md-start {
+    float: left !important;
+  }
+}
+@media (min-width: 768px) {
+  .float-md-end {
+    float: right !important;
+  }
+}
 .App-link {
   color: #61dafb;
 }
