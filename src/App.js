@@ -3,7 +3,6 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import FrontPage from "./components/FrontPage/FrontPage";
 import LogIn from "./components/Auth/LogIn";
-
 import Navbar from "./components/Navbar/Navbar";
 import {
   Switch,
@@ -12,6 +11,7 @@ import {
   withRouter,
 } from "react-router-dom";
 import TripCard from "./components/TripCard/TripCard";
+
 
 const Routers = () => {
   return (
