@@ -11,6 +11,7 @@ import {
   BrowserRouter as Router,
   withRouter,
 } from "react-router-dom";
+import TripCard from "./components/TripCard/TripCard";
 
 const Routers = () => {
   return (
@@ -26,9 +27,10 @@ const Routers = () => {
 function App() {
   return (
     <div className="App">
-      <Router>
+      {/* <Router>
         <Routers />
-      </Router>
+      </Router> */}
+      <TripCard />
     </div>
   );
 }
