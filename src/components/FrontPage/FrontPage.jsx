@@ -1,11 +1,12 @@
 import React from "react";
 import "./FrontPage.css";
 import { Container } from "react-bootstrap";
+import Navbar from "../Navbar/Navbar";
 const FrontPage = () => {
   return (
     <div className="d-flex vh-100 text-center text-white background-dark front-page">
       <Container className=" cover-container text-center d-flex w-100 h-100 p-3 mx-auto flex-column">
-        <header class="mb-auto">
+        {/*  <header class="mb-auto">
           <div>
             <h3 class="float-md-left mb-0">Carpool</h3>
             <nav class="nav nav-masthead justify-content-center float-md-right">
@@ -20,8 +21,8 @@ const FrontPage = () => {
               </a>
             </nav>
           </div>
-        </header>
-
+        </header> */}
+        {/* <Navbar /> */}
         <main class="px-3">
           <h1>Carpool</h1>
           <p class="lead">
