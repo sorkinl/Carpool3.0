@@ -24,6 +24,15 @@
   color: white;
 }
 
+.vh-100 {
+  height: 100vh;
+  overflow: none;
+}
+@media (min-width: 768px) {
+  .float-md-start {
+    float: left !important;
+  }
+}
 .App-link {
   color: #61dafb;
 }

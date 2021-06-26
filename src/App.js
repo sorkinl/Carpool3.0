@@ -3,7 +3,11 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import FrontPage from "./components/FrontPage/FrontPage";
 function App() {
-  return <FrontPage />;
+  return (
+    <div>
+      <FrontPage />
+    </div>
+  );
 }
 
 export default App;
