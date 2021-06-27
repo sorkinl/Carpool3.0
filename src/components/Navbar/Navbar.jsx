@@ -7,11 +7,11 @@ import {
   Button,
   InputGroup,
 } from "react-bootstrap";
-import AccountIcon from "./LoggedInIcon";
+import AccountIcon from "./AccountIcon";
 var loggedIn = true;
 const loggedInComponent = loggedIn ? (
   //loggedIn
-  <AccountIcon />
+  <AccountIcon width={50} isNavbar={true} />
 ) : (
   //!loggedIn
   <Button variant="outline-light">Sign-up</Button>
