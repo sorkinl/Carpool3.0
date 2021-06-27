@@ -3,7 +3,7 @@ import "./LogIn.css";
 
 export default function LogIn() {
     return (
-        <div className="text-center d-flex vh-100 align-content-center justify-content-center flex-wrap">
+        <div className="text-center d-flex vh-100 align-items-center justify-content-center flex-wrap">
             <form className="form-signin">
                 <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
                 <label for="inputEmail" className="sr-only">Email address</label>
