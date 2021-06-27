@@ -23,7 +23,8 @@ const NavBar = () => {
     <Navbar
       bg={useLocation().pathname == "/" ? "transparent" : "dark"}
       className={
-        useLocation().pathname == "/" ? "position-absolute vw-100" : ""
+        /* 
+        useLocation().pathname == "/" ?  */ "position-absolute vw-100" /* : "" */
       }
       variant="dark"
     >
