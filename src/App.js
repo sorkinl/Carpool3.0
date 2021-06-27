@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 import TripCard from "./components/TripCard/TripCard";
 import Map from "./components/Map/Map";
+import CreateTrip from "./components/CreateTrip/CreateTrip";
 
 const Routers = () => {
   return (
@@ -19,6 +20,9 @@ const Routers = () => {
       <Navbar />
       <Switch>
         <Route path="/" exact component={FrontPage} />
+        <Route path="/createtrip" exact component={CreateTrip} />
+        <Route path="/map" exact component={Map} />
+        <Route path="/trip" exact component={TripCard} />
       </Switch>
     </>
   );
@@ -27,10 +31,9 @@ const Routers = () => {
 function App() {
   return (
     <div className="App">
-      {/* <Router>
+      <Router>
         <Routers />
-      </Router> */}
-      <Map />
+      </Router>
     </div>
   );
 }
