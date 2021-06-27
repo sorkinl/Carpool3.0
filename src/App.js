@@ -5,6 +5,7 @@ import FrontPage from "./components/FrontPage/FrontPage";
 import LogIn from "./components/Auth/LogIn";
 import SignUp from "./components/Auth/SignUp";
 import Navbar from "./components/Navbar/Navbar";
+import EditTrip from "./components/CreateTrip/EditTrip"
 import {
   Switch,
   Route,
@@ -26,6 +27,7 @@ const Routers = () => {
         <Route path="/trip" exact component={TripCard} />
         <Route path="/login" exact component={LogIn} />
         <Route path="/signup" exact component={SignUp} />
+        <Route path="/edittrip" exact component={EditTrip} />
       </Switch>
     </>
   );
