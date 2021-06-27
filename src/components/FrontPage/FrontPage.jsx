@@ -23,23 +23,24 @@ const FrontPage = () => {
           </div>
         </header> */}
         {/* <Navbar /> */}
-        <main class="px-3">
-          <h1>Carpool</h1>
-          <p class="lead">
-            Cover is a one-page template for building simple and beautiful home
-            pages. Download, edit the text, and add your own fullscreen
-            background photo to make it your own.
-          </p>
-          <p class="lead">
-            <a
-              href="#"
-              class="btn btn-lg btn-secondary fw-bold border-white bg-white"
-            >
-              Take the tour
-            </a>
-          </p>
-        </main>
-
+        <div className="h-100 w-100 d-flex align-items-center">
+          <main class="px-3 ">
+            <h1>Carpool</h1>
+            <p class="lead">
+              Cover is a one-page template for building simple and beautiful
+              home pages. Download, edit the text, and add your own fullscreen
+              background photo to make it your own.
+            </p>
+            <p class="lead">
+              <a
+                href="#"
+                class="btn btn-lg btn-secondary fw-bold border-white bg-white"
+              >
+                Take the tour
+              </a>
+            </p>
+          </main>
+        </div>
         <footer class="mt-auto text-white-50">
           <p>
             Cover template for{" "}

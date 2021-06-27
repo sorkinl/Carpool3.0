@@ -8,6 +8,7 @@ import {
   InputGroup,
 } from "react-bootstrap";
 import AccountIcon from "./AccountIcon";
+import { useLocation } from "react-router";
 var loggedIn = true;
 const loggedInComponent = loggedIn ? (
   //loggedIn
@@ -19,8 +20,14 @@ const loggedInComponent = loggedIn ? (
 
 const NavBar = () => {
   return (
-    <Navbar bg="dark" variant="dark">
-      <Navbar.Brand href="#home">Carpoolicon</Navbar.Brand>
+    <Navbar
+      bg={useLocation().pathname == "/" ? "transparent" : "dark"}
+      className={
+        useLocation().pathname == "/" ? "position-absolute vw-100" : ""
+      }
+      variant="dark"
+    >
+      <Navbar.Brand href="#home">Carpool</Navbar.Brand>
 
       <InputGroup className="w-25">
         <FormControl placeholder="Search" />
