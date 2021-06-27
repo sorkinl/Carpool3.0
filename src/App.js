@@ -11,6 +11,7 @@ import {
   withRouter,
 } from "react-router-dom";
 import TripCard from "./components/TripCard/TripCard";
+import CreateTrip from "./components/CreateTrip/CreateTrip";
 
 
 const Routers = () => {
@@ -19,6 +20,7 @@ const Routers = () => {
       <Navbar />
       <Switch>
         <Route path="/" exact component={FrontPage} />
+        <Route path="/createtrip" exact component={CreateTrip} />
       </Switch>
     </>
   );
@@ -27,10 +29,10 @@ const Routers = () => {
 function App() {
   return (
     <div className="App">
-      {/* <Router>
+      <Router>
         <Routers />
-      </Router> */}
-      <TripCard />
+      </Router> 
+      {/* <TripCard /> */}
     </div>
   );
 }
