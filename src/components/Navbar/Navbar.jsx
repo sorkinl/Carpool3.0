@@ -9,13 +9,20 @@ import {
 } from "react-bootstrap";
 import AccountIcon from "./AccountIcon";
 import { useLocation } from "react-router";
+import { Link } from 'react-router-dom';
+
 var loggedIn = true;
 const loggedInComponent = loggedIn ? (
   //loggedIn
   <AccountIcon width={50} isNavbar={true} />
 ) : (
   //!loggedIn
-  <Button variant="outline-light">Sign-up</Button>
+    <Link to="/signup">
+      <Button variant="outline-light">
+        Sign-up
+      </Button>
+    </Link>
+  // </Button>
 );
 
 const NavBar = () => {
