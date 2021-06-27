@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import "./sass/app.scss";
 import FrontPage from "./components/FrontPage/FrontPage";
 import LogIn from "./components/Auth/LogIn";
 import SignUp from "./components/Auth/SignUp";
@@ -15,6 +15,7 @@ import {
 import TripCard from "./components/TripCard/TripCard";
 import Map from "./components/Map/Map";
 import CreateTrip from "./components/CreateTrip/CreateTrip";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 const Routers = () => {
   return (

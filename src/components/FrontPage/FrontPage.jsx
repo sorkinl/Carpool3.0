@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import Navbar from "../Navbar/Navbar";
 const FrontPage = () => {
   return (
-    <div className="d-flex vh-100 text-center text-white background-dark front-page">
+    <div className="d-flex vh-100 text-center text-white background-dark front-page mt-n7">
       <Container className=" cover-container text-center d-flex w-100 h-100 p-3 mx-auto flex-column">
         {/*  <header class="mb-auto">
           <div>
