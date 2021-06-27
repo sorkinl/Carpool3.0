@@ -11,7 +11,7 @@ import {
   withRouter,
 } from "react-router-dom";
 import TripCard from "./components/TripCard/TripCard";
-
+import Map from "./components/Map/Map";
 
 const Routers = () => {
   return (
@@ -30,7 +30,7 @@ function App() {
       {/* <Router>
         <Routers />
       </Router> */}
-      <TripCard />
+      <Map />
     </div>
   );
 }
