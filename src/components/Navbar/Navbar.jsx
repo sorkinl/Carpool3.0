@@ -7,7 +7,7 @@ import {
   Button,
   InputGroup,
 } from "react-bootstrap";
-import AccountIcon from "./LoggedInIcon";
+import AccountIcon from "./AccountIcon";
 var loggedIn = true;
 const loggedInComponent = loggedIn ? (
   //loggedIn
