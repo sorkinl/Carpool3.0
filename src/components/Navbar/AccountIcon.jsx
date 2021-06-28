@@ -9,7 +9,6 @@ const AccountIcon = (props) => {
         <DropdownButton
           title={<Image src={image} roundedCircle width={props.width} />}
           noCaret
-          bg="dark"
           variant="dark"
         >
           <Dropdown.Item>User Profile</Dropdown.Item>
