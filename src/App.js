@@ -14,6 +14,7 @@ import {
 import TripCard from "./components/TripCard/TripCard";
 import Map from "./components/Map/Map";
 import CreateTrip from "./components/CreateTrip/CreateTrip";
+import Settings from "./components/Settings/Settings";
 
 const Routers = () => {
   return (
@@ -26,6 +27,7 @@ const Routers = () => {
         <Route path="/trip" exact component={TripCard} />
         <Route path="/login" exact component={LogIn} />
         <Route path="/signup" exact component={SignUp} />
+        <Route path="/settings" exact component={Settings} />
       </Switch>
     </>
   );

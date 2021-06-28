@@ -13,7 +13,7 @@ const AccountIcon = (props) => {
           variant="dark"
         >
           <Dropdown.Item>User Profile</Dropdown.Item>
-          <Dropdown.Item>Setting</Dropdown.Item>
+          <Dropdown.Item href="/settings">Setting</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item>Logout</Dropdown.Item>
         </DropdownButton>
