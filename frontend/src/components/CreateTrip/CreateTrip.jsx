@@ -1,96 +1,117 @@
-import React, {useState} from "react";
-import {Form,Col, Button, DropdownButton, Dropdown} from 'react-bootstrap'
-import DateTimePicker from 'react-datetime-picker'
+import React, { useState } from "react";
+import { Form, Col, Button, DropdownButton, Dropdown } from "react-bootstrap";
+import DateTimePicker from "react-datetime-picker";
 
+const CreateTrip = () => {
+  const [date, setDate] = useState(new Date());
+  const [price, setPrice] = useState("Free, Gas, $$, etc!");
+  const [customPriceDisabled, setCustomPrice] = useState(true);
+  const [customPriceValue, setCustomPriceValue] = useState("");
 
-const CreateTrip =()=>{
-    const [date, setDate] = useState(new Date())
-    const [price, setPrice] = useState("Free, Gas, $$, etc!")
+  const maxDate = () => {
+    var date = new Date(new Date());
+    date.setDate(date.getDate() + 90);
+    return date;
+  };
+  //changing dropdownButton resets custom form values
+  const onItemClick = (x) => {
+    if (x.target.value !== "Custom Input (Cash, etc)") {
+      setPrice(x.target.value);
+      setCustomPrice(true);
+      setCustomPriceValue("");
+    } else {
+      setCustomPrice(false);
+    }
+  };
 
-    const maxDate=()=>{
-        var date = new Date(new Date());
-        date.setDate(date.getDate() + 90);
-        return date;
+  const onCustomPriceChange = (x) => {
+    setPrice(x.target.value);
+    if (x.target.value.length === 0) {
+      setPrice("Free, Gas, $$, etc!");
     }
-    //changing dropdownButton resets custom form values
-    const onItemClick=(x)=>{
-        console.log(x)
-        console.log(x.target)
-        console.log(x.target.text)
-        setPrice(x.target.text)
-    }
-    
-    const onCustomPriceChange=(x)=>{
-        setPrice(x.target.value)
-        if(x.target.value.length===0) {setPrice("Free, Gas, $$, etc!")}
-    }
-    return(
-        <div width="100">
-        <Form>
+  };
+  return (
+    <div className="vh-100 d-flex align-items-center justify-content-center">
+      <Form>
         <Form.Row>
-            <Form.Group>
+          <Form.Group style={{ width: "100%" }}>
             <Form.Label className="float-left">Pick Up Location</Form.Label>
             <Form.Control placeholder="Pick Up Location" />
-            </Form.Group>
+          </Form.Group>
         </Form.Row>
 
         <Form.Row>
-            <Form.Group>
+          <Form.Group style={{ width: "100%" }}>
             <Form.Label className="float-left">Destination</Form.Label>
             <Form.Control placeholder="Destination" />
-            </Form.Group>
+          </Form.Group>
         </Form.Row>
 
         <Form.Row>
-            <Form.Group>
-            <Form.Label>Date</Form.Label>
-              
-                <DateTimePicker 
-                    value = {date}
-                    onChange={(value)=>setDate(value)} 
-                    clearIcon={null}
-                    minDate={new Date()}
-                    maxDate={maxDate()}
-                    
-                    /> 
-          
-            </Form.Group>
+          <Form.Group>
+            <Form.Label className="float-left">Date</Form.Label> <br />
+            <DateTimePicker
+              value={date}
+              onChange={(value) => setDate(value)}
+              clearIcon={null}
+              minDate={new Date()}
+              maxDate={maxDate()}
+            />
+          </Form.Group>
         </Form.Row>
 
-        <Form.Group controlId="formGridAddress2">
-            <Form.Label>Price</Form.Label>
-            <DropdownButton title={price}>
-            
-                <Dropdown.Item onSelect={(_,x)=>onItemClick(x)}>No Cost</Dropdown.Item>
-                <Dropdown.Item onSelect={(_,x)=>onItemClick(x)}>Gas Fee</Dropdown.Item>
-                <Dropdown.Divider />
-                {/* <Dropdown.Item }>Custom Input (Cash, etc)</Dropdown.Item> */}
-                <Form.Control 
-                    placeholder = "Custom Input (Cash, etc)"
-                    onChange={(x)=> onCustomPriceChange(x) }/>
-            </DropdownButton>
-        </Form.Group>
+        <Form.Row>
+          <Form.Group
+            className=""
+            style={{ width: "50%" }}
+            controlId="formGridAddress2"
+          >
+            <Form.Label className="float-left">Price</Form.Label>
+            <Form.Control as="select" custom onChange={(x) => onItemClick(x)}>
+              <option>No Cost</option>
+              <option>Gas Fee</option>
+              <option>Custom Input (Cash, etc)</option>
+            </Form.Control>
+          </Form.Group>
+          <Form.Group
+            className=""
+            style={{ width: "50%" }}
+            controlId="formGridAddress2"
+          >
+            <Form.Label className="float-left">Seats Available</Form.Label>
+            <Form.Control
+              as="select"
+              custom
+              onChange={(x) => setPrice(x.target.value)}
+            >
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </Form.Control>
+          </Form.Group>
+        </Form.Row>
 
+        <Form.Row>
+          <Form.Group style={{ width: "100%" }}>
+            <Form.Label className="float-left">Custom Price Input</Form.Label>
+            <Form.Control
+              placeholder="Custom Input (Cash, etc)"
+              disabled={customPriceDisabled}
+              onChange={(x) => setCustomPriceValue(x.target.value)}
+              value={customPriceValue}
+            />
+          </Form.Group>
+        </Form.Row>
 
-        <Form.Group controlId="formGridAddress2">
-            <Form.Row>
-                <DropdownButton id="dropdown-basic-button" title="Extra Seats">
-                    <Dropdown.Item >1</Dropdown.Item>
-                    <Dropdown.Item >2</Dropdown.Item>
-                    <Dropdown.Item >3</Dropdown.Item>
-                </DropdownButton>
-            </Form.Row>
-        </Form.Group>
-
-
-        <Button variant="primary" type="submit">
+        <Form.Row>
+          <Button variant="dark" type="submit" style={{ width: "100%" }}>
             Submit
-        </Button>
-        </Form>
-        </div>
+          </Button>
+        </Form.Row>
+      </Form>
+    </div>
+  );
+};
 
-    )
-
-}
-
-export default CreateTrip
+export default CreateTrip;
