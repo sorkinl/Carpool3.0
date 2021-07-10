@@ -15,38 +15,66 @@ export default function Settings() {
                     <h5 className="mt-3">An Qing</h5>
                 </div>
                 <div className="col-md-8">
-                    <div className="card text-left">
+                    <div className="card text-left mb-4">
                         <div class="card-body">
                             <div className="d-flex justify-content-between">
                                 <h5 class="card-title">Basic Info</h5>
                                 <button type="button" className="btn btn-primary mr-3" 
-                                    onClick={() => setEdit(true)}>
+                                    onClick={() => setEdit(!isEditting)}>
                                     Edit
                                 </button>
                             </div>
-                            
-                            <ul class="list-group list-group-flush mb-3">
-                                <li class="list-group-item d-flex justify-content-between">
-                                    <div>Name</div>
-                                    <div className="text-secondary">An Qing</div>
-                                    {/* <input type="text" class="form-control" id="inputCity"/> */}
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between">
-                                    <div>Gender</div>
-                                    <div className="text-secondary">Female</div>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between">
-                                    <div>Email</div>
-                                    <div className="text-secondary">jjjjj@gmail.com</div>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between">
-                                    <div>Major</div>
-                                    <div className="text-secondary">Computer Science</div>
-                                </li>
-                            </ul>
-                            
+                            {isEditting ? 
+                                /* Edit mode */
+                                <form>
+                                    <div class="form-group">
+                                        <label for="nameInput">Name</label>
+                                        <input type="name" class="form-control" id="nameInput" placeholder="Enter name"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="genderInput">Gender</label>
+                                        <input type="gender" class="form-control" id="genderInput" placeholder="Enter gender"/>
+                                        <small class="form-text text-muted">We'll never share your gender identity with anyone else.</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="emailInput">Email</label>
+                                        <input type="email" class="form-control" id="emailInput" placeholder="Enter email"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="majorInput">Major</label>
+                                        <input type="major" class="form-control" id="majorInput" placeholder="Enter major"/>
+                                    </div>
+                                    <button  type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                                :
+                                /* Default mode */
+                                /* TODO: Factor into mappable array */
+                                <ul class="list-group list-group-flush mb-2">
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <div>Name</div>
+                                        <div className="text-secondary">An Qing</div>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <div>Gender</div>
+                                        <div className="text-secondary">Female</div>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <div>Email</div>
+                                        <div className="text-secondary">jjjjj@gmail.com</div>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <div>Major</div>
+                                        <div className="text-secondary">danmei studies</div>
+                                    </li>
+                                </ul>
+                            }
+                        </div>
+                    </div>
+
+                    <div className="card text-left">
+                        <div class="card-body">
                             <h5>Account</h5>
-                            <ul class="list-group list-group-flush mb-3">
+                            <ul class="list-group list-group-flush mb-2">
                                 <li class="list-group-item d-flex justify-content-between">
                                     <div>Password</div>
                                     <div>
@@ -54,8 +82,8 @@ export default function Settings() {
                                     </div>
                                 </li>
                             </ul>
-                            
-                            
+                        </div>
+                    </div>
                             {/* <form className="row g-3 d-flex align-items-center justify-content-center">
                                 <div className="col-md-6">
                                     <label for="inputEmail4" className="form-label">Email</label>
@@ -101,8 +129,7 @@ export default function Settings() {
                                 </div>
                             </form> */}
 
-                        </div>
-                    </div>
+                        
         
                 </div>
             </div>
