@@ -1,1 +1,3 @@
-export const secret = "carpool-secret-key";
+module.exports = {
+  secret: process.env.secret,
+};
