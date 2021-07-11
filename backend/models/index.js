@@ -1,23 +1,16 @@
-import {
-  DB,
-  USER,
-  PASSWORD,
-  HOST,
-  dialect as _dialect,
-  pool as _pool,
-} from "../config/db.config.js";
+const config = require("../config/db.config.js");
 
-import Sequelize from "sequelize";
-const sequelize = new Sequelize(DB, USER, PASSWORD, {
-  host: HOST,
-  dialect: _dialect,
+const Sequelize = require("sequelize");
+const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
+  host: config.HOST,
+  dialect: config.dialect,
   operatorsAliases: false,
 
   pool: {
-    max: _pool.max,
-    min: _pool.min,
-    acquire: _pool.acquire,
-    idle: _pool.idle,
+    max: config.pool.max,
+    min: config.pool.min,
+    acquire: config.pool.acquire,
+    idle: config.pool.idle,
   },
 });
 
@@ -40,4 +33,4 @@ db.user.belongsToMany(db.trip, {
   otherKey: "tripId",
 });
 
-export default db;
+module.exports = db;

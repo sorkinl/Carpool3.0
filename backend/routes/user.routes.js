@@ -1,7 +1,7 @@
-import authJwt from "../middleware/authJwt";
-import { allAccess, userBoard } from "../controllers/user.controller";
+const { authJwt } = require("../middleware");
+const controller = require("../controllers/user.controller");
 
-export default function (app) {
+module.exports = function (app) {
   app.use(function (req, res, next) {
     res.header(
       "Access-Control-Allow-Headers",
@@ -10,7 +10,7 @@ export default function (app) {
     next();
   });
 
-  app.get("/api/test/all", allAccess);
+  app.get("/api/test/all", controller.allAccess);
 
-  app.get("/api/user", [authJwt.verifyToken], userBoard);
-}
+  app.get("/api/user", [authJwt.verifyToken], controller.userBoard);
+};

@@ -1,16 +1,16 @@
-import _user from "../models/user.model.js";
-import { secret } from "../config/auth.config";
-const User = _user;
+const db = require("../models");
+const config = require("../config/auth.config");
+const User = db.user;
 
-import { sign } from "jsonwebtoken";
-import { hashSync, compareSync } from "bcryptjs";
+var jwt = require("jsonwebtoken");
+var bcrypt = require("bcryptjs");
 
-export function signup(req, res) {
+exports.signup = (req, res) => {
   // Save User to Database
   User.create({
-    username: req.body.username,
+    uid: req.body.uid,
     email: req.body.email,
-    password: hashSync(req.body.password, 8),
+    password: bcrypt.hashSync(req.body.password, 8),
   })
     .then(() => {
       res.send({ message: "User was registered successfully!" });
@@ -18,12 +18,12 @@ export function signup(req, res) {
     .catch((err) => {
       res.status(500).send({ message: err.message });
     });
-}
+};
 
-export function signin(req, res) {
+exports.signin = (req, res) => {
   User.findOne({
     where: {
-      username: req.body.username,
+      email: req.body.email,
     },
   })
     .then((user) => {
@@ -31,7 +31,10 @@ export function signin(req, res) {
         return res.status(404).send({ message: "User Not found." });
       }
 
-      var passwordIsValid = compareSync(req.body.password, user.password);
+      var passwordIsValid = bcrypt.compareSync(
+        req.body.password,
+        user.password
+      );
 
       if (!passwordIsValid) {
         return res.status(401).send({
@@ -40,12 +43,12 @@ export function signin(req, res) {
         });
       }
 
-      var token = sign({ id: user.id }, secret, {
+      var token = jwt.sign({ id: user.id }, config.secret, {
         expiresIn: 86400, // 24 hours
       });
+      res.cookie("token", token, { httpOnly: true });
       res.status(200).send({
-        id: user.id,
-        username: user.username,
+        uid: user.id,
         email: user.email,
         accessToken: token,
       });
@@ -53,4 +56,4 @@ export function signin(req, res) {
     .catch((err) => {
       res.status(500).send({ message: err.message });
     });
-}
+};

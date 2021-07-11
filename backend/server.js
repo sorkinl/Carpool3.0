@@ -1,20 +1,25 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-
+const cookieParser = require("cookie-parser");
+const jwt = require("express-jwt");
+const authConfig = require("./config/auth.config");
 const app = express();
 
 var corsOptions = {
   origin: "http://localhost:8081",
 };
-
 app.use(cors(corsOptions));
+app.use(cookieParser());
 
 // parse requests of content-type - application/json
 app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
-
+require("./routes/auth.routes")(app);
+require("./routes/user.routes")(app);
+require("./routes/trip.routes")(app);
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
