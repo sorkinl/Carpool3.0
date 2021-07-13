@@ -25,7 +25,6 @@ export default function SignUp() {
     }
     console.log(email, password);
     const response = signUp({ email: email, password: password });
-
     console.log(response);
   };
 

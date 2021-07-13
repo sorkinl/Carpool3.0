@@ -25,7 +25,6 @@ const EditTrip = () => {
       setCustomPrice(false);
     }
   };
-
   const maxDate = () => {
     var date = new Date(new Date());
     date.setDate(date.getDate() + 90);

@@ -8,7 +8,6 @@ export default function LogIn() {
     email: "",
     password: "",
   });
-
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
   const handleOnChange = (event) => {
@@ -61,7 +60,6 @@ export default function LogIn() {
         <button onClick={onSubmit} className="btn btn-lg btn-primary btn-block">
           Sign in
         </button>
-
         <p className="mt-4">
           <Link to="/signup">Don't have an account? Sign up</Link>
         </p>

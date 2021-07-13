@@ -11,8 +11,9 @@ const AccountIcon = (props) => {
           noCaret
           bg="dark"
           variant="dark"
+          drop="left"
         >
-          <Dropdown.Item>User Profile</Dropdown.Item>
+          {/* <Dropdown.Item>User Profile</Dropdown.Item> */}
           <Dropdown.Item href="/settings">Setting</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item>Logout</Dropdown.Item>

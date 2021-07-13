@@ -26,13 +26,13 @@ const Routers = () => {
         <Switch>
           <Route path="/" exact component={FrontPage} />
           <Route path="/createtrip" exact component={CreateTrip} />
+          <Route path="/edittrip" exact component={EditTrip} />
+          <Route path="/dashboard" exact component={Dashboard} />
           <Route path="/map" exact component={Map} />
           <Route path="/trip" exact component={TripCard} />
           <Route path="/login" exact component={LogIn} />
           <Route path="/signup" exact component={SignUp} />
-          <Route path="/edittrip" exact component={EditTrip} />
           <Route path="/settings" exact component={Settings} />
-          <Route path="/dashboard" exact component={Dashboard} />
         </Switch>
       </div>
     </>
