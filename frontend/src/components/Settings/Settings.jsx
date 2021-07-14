@@ -1,12 +1,13 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Link } from 'react-router-dom';
 import { Image } from "react-bootstrap";
 import image from "../Navbar/emptyProfilePic.png";
 import "./Settings.css";
 
 export default function Settings() {
-    const [isEditting, setEdit] = useState(false);
-    const [isSubmitted, setSubmit] = useState(false);
+    const [editMode, setEditMode] = useState(false);
+    const [noEdit, setNoEdit] = useState(true);
+    const [isSaved, setSaved] = useState(false);
     
     const [input, setInput] = useState({
         name: "An Qing",
@@ -15,12 +16,28 @@ export default function Settings() {
         major: "danmei studies",
     });
 
+    const initVal = {
+        name: "An Qing",
+        gender: "Female",
+        email: "jjjjj@gmail.com",
+        major: "danmei studies",
+    };
+
+    useEffect(() => {
+        let edited = true
+        for (let key in input){
+            if(initVal[key] !== input[key]) {
+                edited = false;
+            } 
+        }
+        setNoEdit(edited);
+    });
+
     const onEdit = (e) => {
         const { id, value } = e.target;
         setInput((input) => ({ ...input, [id]: value }));
-        // checkNoEdit(name, value);
     };
-    const onSubmit = (e) => {
+    const onSave = (e) => {
         // e.preventDefault();
         // if (checkEmptyInput() === false) {
         //     setEmptyError(true);
@@ -29,6 +46,8 @@ export default function Settings() {
             // submitProfile();
         // }
     }
+
+
     return (
         <div className="container mt-5">
             <div className="row">
@@ -41,14 +60,16 @@ export default function Settings() {
                         <div className="card-body">
                             <div className="d-flex justify-content-between">
                                 <h5 className="card-title">Basic Info</h5>
+                                {!editMode?
                                 <button type="button" className="btn btn-primary mr-3" 
-                                    onClick={() => setEdit(!isEditting)}>
+                                    onClick={() => setEditMode(!editMode)}>
                                     Edit
                                 </button>
+                                :<></>}   
                             </div>
-                            {isEditting ? 
+                            {editMode ? 
                                 /* Edit mode */
-                                <form onSubmit={onSubmit}>
+                                <form onSubmit={onSave}>
                                     <div className="form-group">
                                         <label htmlFor="nameInput">Name</label>
                                         <input type="text" 
@@ -86,12 +107,22 @@ export default function Settings() {
                                             value={input.major}
                                             onChange={onEdit}/>
                                     </div>
-                                    <button type="submit" className="btn btn-primary">Save</button>
+                                    <button 
+                                        type="button" 
+                                        className="btn btn-light mr-2" 
+                                        onClick={() => setEditMode(!editMode)}>
+                                            Cancel
+                                    </button>
+                                    <button 
+                                        type="submit" 
+                                        className="btn btn-primary" 
+                                        disabled={noEdit === true}>
+                                            Save
+                                    </button>
                                 </form>
                                 :
                                 /* Default mode */
                                 /* TODO: Factor into mappable array */
-
                                 <ul className="list-group list-group-flush mb-2">
                                     <li className="list-group-item d-flex justify-content-between">
                                         <div>Name</div>
