@@ -7,7 +7,7 @@ import "./Settings.css";
 export default function Settings() {
     const [editMode, setEditMode] = useState(false);
     const [noEdit, setNoEdit] = useState(true);
-    const [isSaved, setSaved] = useState(false);
+    // const [isSaved, setSaved] = useState(false);
     
     const [input, setInput] = useState({
         name: "An Qing",
@@ -16,6 +16,7 @@ export default function Settings() {
         major: "danmei studies",
     });
 
+    //TODO: Populate user's data using Postgre
     const initVal = {
         name: "An Qing",
         gender: "Female",
@@ -24,6 +25,7 @@ export default function Settings() {
     };
 
     useEffect(() => {
+        //Verify if user makes any edits
         let edited = true
         for (let key in input){
             if(initVal[key] !== input[key]) {
@@ -38,15 +40,10 @@ export default function Settings() {
         setInput((input) => ({ ...input, [id]: value }));
     };
     const onSave = (e) => {
-        // e.preventDefault();
-        // if (checkEmptyInput() === false) {
-        //     setEmptyError(true);
-        // } else {
-            // setOpen(true);
-            // submitProfile();
-        // }
+        e.preventDefault();
+        //TODO: Save data via Postgre
+        setEditMode(false);
     }
-
 
     return (
         <div className="container mt-5">
@@ -72,7 +69,8 @@ export default function Settings() {
                                 <form onSubmit={onSave}>
                                     <div className="form-group">
                                         <label htmlFor="nameInput">Name</label>
-                                        <input type="text" 
+                                        <input type="text"
+                                            required 
                                             className="form-control" 
                                             id="name" 
                                             placeholder="Enter name"
@@ -82,6 +80,7 @@ export default function Settings() {
                                     <div className="form-group">
                                         <label htmlFor="genderInput">Gender</label>
                                         <input type="text" 
+                                            required
                                             className="form-control" 
                                             id="gender" 
                                             placeholder="Enter gender"
@@ -92,6 +91,7 @@ export default function Settings() {
                                     <div className="form-group">
                                         <label htmlFor="emailInput">Email</label>
                                         <input type="text" 
+                                            required
                                             className="form-control" 
                                             id="email" 
                                             placeholder="Enter email"
@@ -100,7 +100,8 @@ export default function Settings() {
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="majorInput">Major</label>
-                                        <input type="text" 
+                                        <input type="text"
+                                            required 
                                             className="form-control" 
                                             id="major" 
                                             placeholder="Enter major"
@@ -152,7 +153,7 @@ export default function Settings() {
                                 <li className="list-group-item d-flex justify-content-between">
                                     <div>Password</div>
                                     <div>
-                                        <Link to="#">Change password</Link>
+                                        <Link to="/settings/password-change">Change password</Link>
                                     </div>
                                 </li>
                             </ul>
@@ -161,7 +162,5 @@ export default function Settings() {
                 </div>
             </div>
         </div>
-
     )
-        
 }
