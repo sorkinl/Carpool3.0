@@ -37,9 +37,7 @@ const NavBar = () => {
       <Navbar.Brand as={Link} to="/">
         Carpool
       </Navbar.Brand>
-
       <SearchBar />
-
       <Nav className="mr-auto">
         <Nav.Link as={Link} to="/createtrip">
           Post Ride
