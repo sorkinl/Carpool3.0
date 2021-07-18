@@ -9,23 +9,21 @@ import {
 } from "react-bootstrap";
 import AccountIcon from "./AccountIcon";
 import { useLocation } from "react-router";
-import { Link } from 'react-router-dom';
-
-var loggedIn = true;
-const loggedInComponent = loggedIn ? (
-  //loggedIn
-  <AccountIcon width={50} isNavbar={true} />
-) : (
-  //!loggedIn
-    <Link to="/signup">
-      <Button variant="outline-light">
-        Sign-up
-      </Button>
-    </Link>
-  // </Button>
-);
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
+  const user = useSelector((state) => state.authReducer.user);
+  const loggedInComponent = user ? (
+    //loggedIn
+    <AccountIcon width={50} isNavbar={true} />
+  ) : (
+    //!loggedIn
+    <Link to="/signup">
+      <Button variant="outline-light">Sign-up</Button>
+    </Link>
+    // </Button>
+  );
   return (
     <Navbar
       bg={useLocation().pathname == "/" ? "transparent" : "dark"}
@@ -35,18 +33,24 @@ const NavBar = () => {
       }
       variant="dark"
     >
-      <Navbar.Brand href="#home">Carpool</Navbar.Brand>
+      <Navbar.Brand as={Link} to="/">
+        Carpool
+      </Navbar.Brand>
 
-      <InputGroup className="w-25">
+      {/*  <InputGroup className="w-25">
         <FormControl placeholder="Search" />
         <InputGroup.Append>
           <Button variant="outline-secondary">Button</Button>
         </InputGroup.Append>
-      </InputGroup>
+      </InputGroup> */}
 
       <Nav className="mr-auto">
-        <Nav.Link href="#pricing">Post Ride</Nav.Link>
-        <Nav.Link href="#features">Find Rides</Nav.Link>
+        <Nav.Link as={Link} to="/createtrip">
+          Post Ride
+        </Nav.Link>
+        <Nav.Link as={Link} to="/dashboard">
+          Find Rides
+        </Nav.Link>
         <Nav.Link href="#pricing">About us</Nav.Link>
       </Nav>
       {loggedInComponent}

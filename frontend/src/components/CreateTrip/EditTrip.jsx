@@ -9,15 +9,29 @@ import {
 } from "react-bootstrap";
 import DateTimePicker from "react-datetime-picker";
 import { Typeahead } from "react-bootstrap-typeahead";
+import { v4 as uuid } from "uuid";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 const EditTrip = () => {
+  const geocoder = new window.google.maps.Geocoder();
   const [pickupAddress, setPickupAddress] = useState("");
   const [destinationAddress, setDestinationAddress] = useState("");
+  const [submitValues, setSubmitValues] = useState({
+    tripid: uuid(),
+    desttitle: "",
+    destlat: null,
+    destlong: null,
+    origintitle: "",
+    originlat: null,
+    originlong: null,
+  });
   const [date, setDate] = useState(new Date());
   const [price, setPrice] = useState("Free, Gas, $$, etc!");
   const [customPriceDisabled, setCustomPrice] = useState(true);
   const [customPriceValue, setCustomPriceValue] = useState("");
   const [predictions, setPredictions] = useState([]);
+  const user = useSelector((state) => state.authReducer.user);
   //changing dropdownButton resets custom form values
   const onItemClick = (x) => {
     if (x.target.value !== "Custom Input (Cash, etc)") {
@@ -29,6 +43,24 @@ const EditTrip = () => {
     }
   };
 
+  const handlePickupChange = (text, e) => {
+    setPickupAddress(text);
+    if (pickupAddress.length > 3) {
+      autocompleteService.getQueryPredictions(
+        { input: pickupAddress },
+        printPredictions
+      );
+    }
+  };
+  const handleDestinationChange = (text, e) => {
+    setDestinationAddress(text);
+    if (destinationAddress.length > 3) {
+      autocompleteService.getQueryPredictions(
+        { input: destinationAddress },
+        printPredictions
+      );
+    }
+  };
   const maxDate = () => {
     var date = new Date(new Date());
     date.setDate(date.getDate() + 90);
@@ -45,16 +77,48 @@ const EditTrip = () => {
     console.log(predictions);
     setPredictions(predictions);
   };
+
+  const onValueSelect = (field, place) => {
+    console.log(place);
+    let obj;
+    const placeId = place[0] ? place[0].place_id : null;
+    geocoder
+      .geocode({ placeId: placeId })
+      .then(({ results }) => {
+        console.log(results[0]);
+
+        if (field == "pickup") {
+          obj = {
+            origintitle: results[0].formatted_address,
+            originlat: results[0].geometry.location.lat(),
+            originlong: results[0].geometry.location.lng(),
+          };
+        } else {
+          obj = {
+            desttitle: results[0].formatted_address,
+            destlat: results[0].geometry.location.lat(),
+            destlong: results[0].geometry.location.lng(),
+          };
+        }
+        setSubmitValues({
+          ...submitValues,
+          ...obj,
+        });
+      })
+      .catch((e) => console.log("Geocoder failed due to: " + e));
+  };
+
+  const handleSubmit = () => {
+    axios.post("api/trip/create", {
+      ...submitValues,
+      date,
+      price,
+      uid: user,
+    });
+  };
+
   const autocompleteService =
     new window.google.maps.places.AutocompleteService();
-  useEffect(() => {
-    if (pickupAddress.length > 3) {
-      autocompleteService.getQueryPredictions(
-        { input: pickupAddress },
-        printPredictions
-      );
-    }
-  });
 
   return (
     <div className="text-center vh-100 d-flex align-items-center justify-content-center">
@@ -71,18 +135,22 @@ const EditTrip = () => {
             placeholder="Current Pickup Address"
             id="pickupAddress"
             value={pickupAddress}
-            onInputChange={(text, e) => setPickupAddress(text)}
+            onInputChange={handlePickupChange}
             options={predictions}
             labelKey={(option) => option.description}
+            onChange={(place) => onValueSelect("pickup", place)}
           />
         </Form.Group>
         <Form.Group controlId="formGridAddressDestination">
           <Form.Label>Destination Address</Form.Label>
-          <Form.Control
+          <Typeahead
             placeholder="Current Destination Address"
-            name="destinationAddress"
+            id="destinationAddress"
             value={destinationAddress}
-            onInputChange={(text, e) => setDestinationAddress(text)}
+            onInputChange={handleDestinationChange}
+            options={predictions}
+            labelKey={(option) => option.description}
+            onChange={(place) => onValueSelect("destination", place)}
           />
         </Form.Group>
 
@@ -144,6 +212,7 @@ const EditTrip = () => {
               type="submit"
               className="col-xs-3 mr-2"
               style={{ width: "150px" }}
+              onClick={handleSubmit}
             >
               Update
             </Button>

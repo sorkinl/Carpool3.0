@@ -55,7 +55,6 @@ exports.signin = (req, res) => {
       if (!user) {
         return res.status(404).send({ message: "User Not found." });
       }
-
       var passwordIsValid = bcrypt.compareSync(
         req.body.password,
         user.password
@@ -67,7 +66,6 @@ exports.signin = (req, res) => {
           message: "Invalid Password!",
         });
       }
-      console.log(user.dataValues.uid);
       var token = jwt.sign({ id: user.dataValues.uid }, config.secret, {
         expiresIn: 86400, // 24 hours
       });

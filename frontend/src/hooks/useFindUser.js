@@ -8,6 +8,7 @@ export default function useFindUser() {
       await axios
         .get("/api/auth/user")
         .then((res) => {
+          console.log(res.data);
           setUser(res.data.uid);
           setLoading(false);
         })

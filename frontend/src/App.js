@@ -15,12 +15,15 @@ import {
 import TripCard from "./components/TripCard/TripCard";
 import Map from "./components/Map/Map";
 import CreateTrip from "./components/CreateTrip/CreateTrip";
+import Settings from "./components/Settings/Settings";
 import Dashboard from "./components/Dashboard/Dashboard";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import useFindUser from "./hooks/useFindUser";
 import { useDispatch } from "react-redux";
 import { setUser } from "./redux/actions/authActions";
 import ReactGoogleMapLoader from "react-google-maps-loader";
+import ResetPassword from "./components/Auth/ResetPassword";
+import ChangePassword from "./components/Settings/ChangePassword";
 
 const Routers = () => {
   return (
@@ -30,12 +33,21 @@ const Routers = () => {
         <Switch>
           <Route path="/" exact component={FrontPage} />
           <Route path="/createtrip" exact component={CreateTrip} />
+          <Route path="/edittrip" exact component={EditTrip} />
+          <Route path="/dashboard" exact component={Dashboard} />
           <Route path="/map" exact component={Map} />
           <Route path="/trip" exact component={TripCard} />
           <Route path="/login" exact component={LogIn} />
           <Route path="/signup" exact component={SignUp} />
           <Route path="/edittrip" exact component={EditTrip} />
           <PrivateRoute path="/dashboard" exact component={Dashboard} />
+          <Route path="/settings" exact component={Settings} />
+          <Route
+            path="/settings/password-change"
+            exact
+            component={ChangePassword}
+          />
+          <Route path="/password-reset" exact component={ResetPassword} />
         </Switch>
       </div>
     </>
@@ -52,7 +64,7 @@ function App() {
     <ReactGoogleMapLoader
       params={{
         key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-        libraries: "places, directions",
+        libraries: "places, directions, geocoder",
       }}
       render={(googleMaps) =>
         googleMaps && (
