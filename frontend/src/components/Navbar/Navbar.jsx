@@ -45,8 +45,8 @@ const NavBar = () => {
       </InputGroup>
 
       <Nav className="mr-auto">
-        <Nav.Link href="#pricing">Post Ride</Nav.Link>
-        <Nav.Link href="#features">Find Rides</Nav.Link>
+        <Nav.Link href="/createtrip">Post Ride</Nav.Link>
+        <Nav.Link href="/dashboard">Find Rides</Nav.Link>
         <Nav.Link href="#pricing">About us</Nav.Link>
       </Nav>
       {loggedInComponent}

@@ -15,7 +15,10 @@ import {
 import TripCard from "./components/TripCard/TripCard";
 import Map from "./components/Map/Map";
 import CreateTrip from "./components/CreateTrip/CreateTrip";
+import Settings from "./components/Settings/Settings";
 import Dashboard from "./components/Dashboard/Dashboard";
+import ResetPassword from "./components/Auth/ResetPassword";
+import ChangePassword from "./components/Settings/ChangePassword";
 
 const Routers = () => {
   return (
@@ -25,12 +28,15 @@ const Routers = () => {
         <Switch>
           <Route path="/" exact component={FrontPage} />
           <Route path="/createtrip" exact component={CreateTrip} />
+          <Route path="/edittrip" exact component={EditTrip} />
+          <Route path="/dashboard" exact component={Dashboard} />
           <Route path="/map" exact component={Map} />
           <Route path="/trip" exact component={TripCard} />
           <Route path="/login" exact component={LogIn} />
           <Route path="/signup" exact component={SignUp} />
-          <Route path="/edittrip" exact component={EditTrip} />
-          <Route path="/dashboard" exact component={Dashboard} />
+          <Route path="/settings" exact component={Settings} />
+          <Route path="/settings/password-change" exact component={ChangePassword} />
+          <Route path="/password-reset" exact component={ResetPassword} />
         </Switch>
       </div>
     </>
