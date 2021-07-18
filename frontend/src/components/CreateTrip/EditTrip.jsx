@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Form,
   Col,
@@ -8,13 +8,16 @@ import {
   Modal,
 } from "react-bootstrap";
 import DateTimePicker from "react-datetime-picker";
+import { Typeahead } from "react-bootstrap-typeahead";
 
 const EditTrip = () => {
+  const [pickupAddress, setPickupAddress] = useState("");
+  const [destinationAddress, setDestinationAddress] = useState("");
   const [date, setDate] = useState(new Date());
   const [price, setPrice] = useState("Free, Gas, $$, etc!");
   const [customPriceDisabled, setCustomPrice] = useState(true);
   const [customPriceValue, setCustomPriceValue] = useState("");
-
+  const [predictions, setPredictions] = useState([]);
   //changing dropdownButton resets custom form values
   const onItemClick = (x) => {
     if (x.target.value !== "Custom Input (Cash, etc)") {
@@ -31,16 +34,56 @@ const EditTrip = () => {
     date.setDate(date.getDate() + 90);
     return date;
   };
+  const printPredictions = (predictions, status) => {
+    if (
+      status != window.google.maps.places.PlacesServiceStatus.OK ||
+      !predictions
+    ) {
+      console.log(status);
+      return;
+    }
+    console.log(predictions);
+    setPredictions(predictions);
+  };
+  const autocompleteService =
+    new window.google.maps.places.AutocompleteService();
+  useEffect(() => {
+    if (pickupAddress.length > 3) {
+      autocompleteService.getQueryPredictions(
+        { input: pickupAddress },
+        printPredictions
+      );
+    }
+  });
+
   return (
     <div className="text-center vh-100 d-flex align-items-center justify-content-center">
       <Form>
         <Form.Group controlId="formGridAddressPickUp">
           <Form.Label>Pickup Address</Form.Label>
-          <Form.Control placeholder="Current Pickup Address" />
+          {/* <Form.Control
+            placeholder="Current Pickup Address"
+            name="pickupAddress"
+            value={inputValues.pickupAddress}
+            onChange={(e) => handleOnChange(e)}
+          /> */}
+          <Typeahead
+            placeholder="Current Pickup Address"
+            id="pickupAddress"
+            value={pickupAddress}
+            onInputChange={(text, e) => setPickupAddress(text)}
+            options={predictions}
+            labelKey={(option) => option.description}
+          />
         </Form.Group>
         <Form.Group controlId="formGridAddressDestination">
           <Form.Label>Destination Address</Form.Label>
-          <Form.Control placeholder="Current Destination Address" />
+          <Form.Control
+            placeholder="Current Destination Address"
+            name="destinationAddress"
+            value={destinationAddress}
+            onInputChange={(text, e) => setDestinationAddress(text)}
+          />
         </Form.Group>
 
         <Form.Row>

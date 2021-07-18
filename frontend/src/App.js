@@ -16,6 +16,11 @@ import TripCard from "./components/TripCard/TripCard";
 import Map from "./components/Map/Map";
 import CreateTrip from "./components/CreateTrip/CreateTrip";
 import Dashboard from "./components/Dashboard/Dashboard";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import useFindUser from "./hooks/useFindUser";
+import { useDispatch } from "react-redux";
+import { setUser } from "./redux/actions/authActions";
+import ReactGoogleMapLoader from "react-google-maps-loader";
 
 const Routers = () => {
   return (
@@ -30,7 +35,7 @@ const Routers = () => {
           <Route path="/login" exact component={LogIn} />
           <Route path="/signup" exact component={SignUp} />
           <Route path="/edittrip" exact component={EditTrip} />
-          <Route path="/dashboard" exact component={Dashboard} />
+          <PrivateRoute path="/dashboard" exact component={Dashboard} />
         </Switch>
       </div>
     </>
@@ -38,12 +43,27 @@ const Routers = () => {
 };
 
 function App() {
+  const { user, isLoading } = useFindUser();
+  const dispatch = useDispatch();
+  dispatch(setUser(user));
+
   return (
-    <div className="App">
-      <Router>
-        <Routers />
-      </Router>
-    </div>
+    //<Wrapper apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+    <ReactGoogleMapLoader
+      params={{
+        key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+        libraries: "places, directions",
+      }}
+      render={(googleMaps) =>
+        googleMaps && (
+          <div className="App">
+            <Router>
+              <Routers />
+            </Router>
+          </div>
+        )
+      }
+    />
   );
 }
 
