@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import { signUp } from "../../redux/actions/authActions";
 
 export default function SignUp() {
@@ -21,7 +22,8 @@ export default function SignUp() {
     const { name, value } = event.target;
     setInputValues({ ...inputValues, [name]: value });
   };
-
+  const history = useHistory();
+  const { user } = useSelector((state) => state.authReducer);
   const onSubmit = (e) => {
     e.preventDefault();
     const { email, password, confirmPassword } = inputValues;
@@ -38,7 +40,9 @@ export default function SignUp() {
     const response = signUp({ email: email, password: password });
     console.log(response);
   };
-
+  if (user) {
+    history.push("/dashboard");
+  }
   return (
     // <div className="text-center d-flex flex-wrap align-items-center justify-content-center">
       <div className="col-md-4 offset-md-4 text-center mt-5">

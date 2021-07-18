@@ -13,22 +13,22 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.TEXT,
       },
       desttitle: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       destlat: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.DOUBLE,
       },
       destlong: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.DOUBLE,
       },
       origintitle: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       originlat: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.DOUBLE,
       },
       originlong: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.DOUBLE,
       },
       emptyseats: {
         type: Sequelize.INTEGER,

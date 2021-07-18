@@ -1,5 +1,6 @@
 import axios from "axios";
 import { v4 as uuid } from "uuid";
+import useFindUser from "../../hooks/useFindUser";
 import { SET_USER } from "../types/authTypes";
 
 export const signUp = async (payload) => {
@@ -22,12 +23,19 @@ export const signIn = (payload) => {
         ...payload,
       });
       console.log(response);
-      dispatch(setUser(response.data.accessToken));
+      dispatch(setUser(response.data.uid));
     } catch (e) {
       console.log(e);
     }
   };
 };
+
+/* export const verifyUser = () => {
+  return async (dispatch) => {
+    const { user, setUser, isLoading } = useFindUser();
+    dispatch({ type: SET_USER, payload: user });
+  };
+}; */
 
 export const setUser = (payload) => {
   console.log(payload);
