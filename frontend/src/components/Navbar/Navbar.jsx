@@ -10,6 +10,7 @@ import {
 import AccountIcon from "./AccountIcon";
 import { useLocation } from "react-router";
 import { Link } from 'react-router-dom';
+import SearchBar from "../Search/SearchBar";
 
 var loggedIn = true;
 const loggedInComponent = loggedIn ? (
@@ -37,12 +38,7 @@ const NavBar = () => {
     >
       <Navbar.Brand href="#home">Carpool</Navbar.Brand>
 
-      <InputGroup className="w-25">
-        <FormControl placeholder="Search" />
-        <InputGroup.Append>
-          <Button variant="outline-secondary">Button</Button>
-        </InputGroup.Append>
-      </InputGroup>
+      <SearchBar/>
 
       <Nav className="mr-auto">
         <Nav.Link href="/createtrip">Post Ride</Nav.Link>

@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Form, Col, Button, DropdownButton, Dropdown } from "react-bootstrap";
+import { 
+  Form, 
+  Col, 
+  Button, 
+  DropdownButton, 
+  Dropdown, 
+  Card 
+} from "react-bootstrap";
 import DateTimePicker from "react-datetime-picker";
 
 const CreateTrip = () => {
@@ -32,84 +39,88 @@ const CreateTrip = () => {
   };
   return (
     <div className="vh-100 d-flex align-items-center justify-content-center">
-      <Form>
-        <Form.Row>
-          <Form.Group style={{ width: "100%" }}>
-            <Form.Label className="float-left">Pick Up Location</Form.Label>
-            <Form.Control placeholder="Pick Up Location" />
-          </Form.Group>
-        </Form.Row>
+      <Card>
+        <Card.Body>
+          <Form>
+            <Form.Row>
+              <Form.Group style={{ width: "100%" }}>
+                <Form.Label className="float-left">Pick Up Location</Form.Label>
+                <Form.Control placeholder="Pick Up Location" />
+              </Form.Group>
+            </Form.Row>
 
-        <Form.Row>
-          <Form.Group style={{ width: "100%" }}>
-            <Form.Label className="float-left">Destination</Form.Label>
-            <Form.Control placeholder="Destination" />
-          </Form.Group>
-        </Form.Row>
+            <Form.Row>
+              <Form.Group style={{ width: "100%" }}>
+                <Form.Label className="float-left">Destination</Form.Label>
+                <Form.Control placeholder="Destination" />
+              </Form.Group>
+            </Form.Row>
 
-        <Form.Row>
-          <Form.Group>
-            <Form.Label className="float-left">Date</Form.Label> <br />
-            <DateTimePicker
-              value={date}
-              onChange={(value) => setDate(value)}
-              clearIcon={null}
-              minDate={new Date()}
-              maxDate={maxDate()}
-            />
-          </Form.Group>
-        </Form.Row>
+            <Form.Row>
+              <Form.Group>
+                <Form.Label className="float-left">Date</Form.Label> <br />
+                <DateTimePicker
+                  value={date}
+                  onChange={(value) => setDate(value)}
+                  clearIcon={null}
+                  minDate={new Date()}
+                  maxDate={maxDate()}
+                />
+              </Form.Group>
+            </Form.Row>
 
-        <Form.Row>
-          <Form.Group
-            className=""
-            style={{ width: "50%" }}
-            controlId="formGridAddress2"
-          >
-            <Form.Label className="float-left">Price</Form.Label>
-            <Form.Control as="select" custom onChange={(x) => onItemClick(x)}>
-              <option>No Cost</option>
-              <option>Gas Fee</option>
-              <option>Custom Input (Cash, etc)</option>
-            </Form.Control>
-          </Form.Group>
-          <Form.Group
-            className=""
-            style={{ width: "50%" }}
-            controlId="formGridAddress2"
-          >
-            <Form.Label className="float-left">Seats Available</Form.Label>
-            <Form.Control
-              as="select"
-              custom
-              onChange={(x) => setPrice(x.target.value)}
-            >
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-            </Form.Control>
-          </Form.Group>
-        </Form.Row>
+            <Form.Row>
+              <Form.Group
+                className=""
+                style={{ width: "50%" }}
+                controlId="formGridAddress2"
+              >
+                <Form.Label className="float-left">Price</Form.Label>
+                <Form.Control as="select" custom onChange={(x) => onItemClick(x)}>
+                  <option>No Cost</option>
+                  <option>Gas Fee</option>
+                  <option>Custom Input (Cash, etc)</option>
+                </Form.Control>
+              </Form.Group>
+              <Form.Group
+                className=""
+                style={{ width: "50%" }}
+                controlId="formGridAddress2"
+              >
+                <Form.Label className="float-left">Seats Available</Form.Label>
+                <Form.Control
+                  as="select"
+                  custom
+                  onChange={(x) => setPrice(x.target.value)}
+                >
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                </Form.Control>
+              </Form.Group>
+            </Form.Row>
 
-        <Form.Row>
-          <Form.Group style={{ width: "100%" }}>
-            <Form.Label className="float-left">Custom Price Input</Form.Label>
-            <Form.Control
-              placeholder="Custom Input (Cash, etc)"
-              disabled={customPriceDisabled}
-              onChange={(x) => setCustomPriceValue(x.target.value)}
-              value={customPriceValue}
-            />
-          </Form.Group>
-        </Form.Row>
+            <Form.Row>
+              <Form.Group style={{ width: "100%" }}>
+                <Form.Label className="float-left">Custom Price Input</Form.Label>
+                <Form.Control
+                  placeholder="Custom Input (Cash, etc)"
+                  disabled={customPriceDisabled}
+                  onChange={(x) => setCustomPriceValue(x.target.value)}
+                  value={customPriceValue}
+                />
+              </Form.Group>
+            </Form.Row>
 
-        <Form.Row>
-          <Button variant="dark" type="submit" style={{ width: "100%" }}>
-            Submit
-          </Button>
-        </Form.Row>
-      </Form>
+            <Form.Row>
+              <Button variant="dark" type="submit" style={{ width: "100%" }}>
+                Submit
+              </Button>
+            </Form.Row>
+          </Form>
+        </Card.Body>
+      </Card>
     </div>
   );
 };
