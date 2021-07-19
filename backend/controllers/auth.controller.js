@@ -6,6 +6,7 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
+  console.log("creating user")
   // Save User to Database
   User.create({
     uid: req.body.uid,
@@ -30,6 +31,7 @@ exports.signin = (req, res) => {
       if (!user) {
         return res.status(404).send({ message: "User Not found." });
       }
+      //Validate password
       var passwordIsValid = bcrypt.compareSync(
         req.body.password,
         user.password
@@ -41,6 +43,7 @@ exports.signin = (req, res) => {
           message: "Invalid Password!",
         });
       }
+      //Create and encode token
       var token = jwt.sign({ id: user.id }, config.secret, {
         expiresIn: 86400, // 24 hours
       });

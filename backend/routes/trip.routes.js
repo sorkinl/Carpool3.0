@@ -10,4 +10,6 @@ module.exports = function (app) {
   });
 
   app.post("/api/trip/create", controller.createTrip);
+
+  app.post("/api/trip/find", controller.findTrip);
 };

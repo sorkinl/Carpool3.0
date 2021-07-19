@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const Trip = sequelize.define(
+  const User = sequelize.define(
     "users",
     {
       uid: {
@@ -49,5 +49,5 @@ module.exports = (sequelize, Sequelize) => {
     { timestamps: false }
   );
 
-  return Trip;
+  return User;
 };

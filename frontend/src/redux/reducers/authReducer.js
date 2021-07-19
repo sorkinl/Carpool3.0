@@ -1,5 +1,5 @@
 import * as types from "../types/authTypes";
-
+//JWT
 const initialState = {
   user: null,
 };
