@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { signIn } from "../../redux/actions/authActions";
 
 export default function LogIn() {
@@ -8,13 +8,15 @@ export default function LogIn() {
     email: "",
     password: "",
   });
+  const history = useHistory();
+  //const [errorMessage, setErrorMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
   const handleOnChange = (event) => {
     const { name, value } = event.target;
     setInputValues({ ...inputValues, [name]: value });
   };
-  const user = useSelector((state) => state);
+  const { user } = useSelector((state) => state.authReducer);
   const onSubmit = (e) => {
     e.preventDefault();
     const { email, password } = inputValues;
@@ -22,7 +24,12 @@ export default function LogIn() {
     dispatch(signIn({ email: email, password: password }));
     console.log("called");
   };
-  console.log();
+  useEffect(() => {
+    if (user) {
+      history.push("/dashboard");
+    }
+  }, [user]);
+
   return (
     // <div className="text-center vh-100 d-flex align-items-center justify-content-center">
     <div className="col-md-4 offset-md-4 text-center mt-5">
@@ -63,7 +70,10 @@ export default function LogIn() {
             <p className="form-text small text-left">
               <Link to="/password-reset">Forgot password?</Link>
             </p>
-            <button onClick={onSubmit} className="btn btn-lg btn-primary btn-block">
+            <button
+              onClick={onSubmit}
+              className="btn btn-lg btn-primary btn-block"
+            >
               Sign in
             </button>
             <p className="mt-4">

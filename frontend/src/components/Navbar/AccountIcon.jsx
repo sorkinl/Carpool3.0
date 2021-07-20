@@ -8,7 +8,6 @@ const AccountIcon = (props) => {
       {props.isNavbar ? (
         <DropdownButton
           title={<Image src={image} roundedCircle width={props.width} />}
-          noCaret
           bg="dark"
           variant="dark"
           drop="left"

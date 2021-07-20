@@ -24,31 +24,31 @@ const FrontPage = () => {
         </header> */}
         {/* <Navbar /> */}
         <div className="h-100 w-100 d-flex align-items-center">
-          <main class="px-3 ">
+          <main className="px-3 ">
             <h1>Carpool</h1>
-            <p class="lead">
+            <p className="lead">
               Cover is a one-page template for building simple and beautiful
               home pages. Download, edit the text, and add your own fullscreen
               background photo to make it your own.
             </p>
-            <p class="lead">
+            <p className="lead">
               <a
                 href="#"
-                class="btn btn-lg btn-secondary fw-bold border-white bg-white"
+                className="btn btn-lg btn-secondary fw-bold border-white bg-white"
               >
                 Take the tour
               </a>
             </p>
           </main>
         </div>
-        <footer class="mt-auto text-white-50">
+        <footer className="mt-auto text-white-50">
           <p>
             Cover template for{" "}
-            <a href="https://getbootstrap.com/" class="text-white">
+            <a href="https://getbootstrap.com/" className="text-white">
               Bootstrap
             </a>
             , by{" "}
-            <a href="https://twitter.com/mdo" class="text-white">
+            <a href="https://twitter.com/mdo" className="text-white">
               @mdo
             </a>
             .

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Form,
   Col,
@@ -8,13 +8,30 @@ import {
   Modal,
 } from "react-bootstrap";
 import DateTimePicker from "react-datetime-picker";
+import { Typeahead } from "react-bootstrap-typeahead";
+import { v4 as uuid } from "uuid";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 const EditTrip = () => {
+  const geocoder = new window.google.maps.Geocoder();
+  const [pickupAddress, setPickupAddress] = useState("");
+  const [destinationAddress, setDestinationAddress] = useState("");
+  const [submitValues, setSubmitValues] = useState({
+    tripid: uuid(),
+    desttitle: "",
+    destlat: null,
+    destlong: null,
+    origintitle: "",
+    originlat: null,
+    originlong: null,
+  });
   const [date, setDate] = useState(new Date());
   const [price, setPrice] = useState("Free, Gas, $$, etc!");
   const [customPriceDisabled, setCustomPrice] = useState(true);
   const [customPriceValue, setCustomPriceValue] = useState("");
-
+  const [predictions, setPredictions] = useState([]);
+  const user = useSelector((state) => state.authReducer.user);
   //changing dropdownButton resets custom form values
   const onItemClick = (x) => {
     if (x.target.value !== "Custom Input (Cash, etc)") {
@@ -25,11 +42,84 @@ const EditTrip = () => {
       setCustomPrice(false);
     }
   };
+
+  const handlePickupChange = (text, e) => {
+    setPickupAddress(text);
+    if (pickupAddress.length > 3) {
+      autocompleteService.getQueryPredictions(
+        { input: pickupAddress },
+        printPredictions
+      );
+    }
+  };
+  const handleDestinationChange = (text, e) => {
+    setDestinationAddress(text);
+    if (destinationAddress.length > 3) {
+      autocompleteService.getQueryPredictions(
+        { input: destinationAddress },
+        printPredictions
+      );
+    }
+  };
   const maxDate = () => {
     var date = new Date(new Date());
     date.setDate(date.getDate() + 90);
     return date;
   };
+  const printPredictions = (predictions, status) => {
+    if (
+      status != window.google.maps.places.PlacesServiceStatus.OK ||
+      !predictions
+    ) {
+      console.log(status);
+      return;
+    }
+    console.log(predictions);
+    setPredictions(predictions);
+  };
+
+  const onValueSelect = (field, place) => {
+    console.log(place);
+    let obj;
+    const placeId = place[0] ? place[0].place_id : null;
+    geocoder
+      .geocode({ placeId: placeId })
+      .then(({ results }) => {
+        console.log(results[0]);
+
+        if (field == "pickup") {
+          obj = {
+            origintitle: results[0].formatted_address,
+            originlat: results[0].geometry.location.lat(),
+            originlong: results[0].geometry.location.lng(),
+          };
+        } else {
+          obj = {
+            desttitle: results[0].formatted_address,
+            destlat: results[0].geometry.location.lat(),
+            destlong: results[0].geometry.location.lng(),
+          };
+        }
+        setSubmitValues({
+          ...submitValues,
+          ...obj,
+        });
+      })
+      .catch((e) => console.log("Geocoder failed due to: " + e));
+  };
+
+  const handleSubmit = () => {
+    axios.post("api/trip/create", {
+      ...submitValues,
+      date,
+      price,
+      uid: user,
+    });
+  };
+
+  const autocompleteService =
+    new window.google.maps.places.AutocompleteService();
+
   return (
     <div className="text-center vh-100 d-flex align-items-center justify-content-center">
       <Card>
@@ -37,13 +127,28 @@ const EditTrip = () => {
           <Form>
             <Form.Group controlId="formGridAddressPickUp">
               <Form.Label>Pickup Address</Form.Label>
-              <Form.Control placeholder="Current Pickup Address" />
+              <Typeahead
+            placeholder="Current Pickup Address"
+            id="pickupAddress"
+            value={pickupAddress}
+            onInputChange={handlePickupChange}
+            options={predictions}
+            labelKey={(option) => option.description}
+            onChange={(place) => onValueSelect("pickup", place)}
+          />
             </Form.Group>
             <Form.Group controlId="formGridAddressDestination">
               <Form.Label>Destination Address</Form.Label>
-              <Form.Control placeholder="Current Destination Address" />
+              <Typeahead
+            placeholder="Current Destination Address"
+            id="destinationAddress"
+            value={destinationAddress}
+            onInputChange={handleDestinationChange}
+            options={predictions}
+            labelKey={(option) => option.description}
+            onChange={(place) => onValueSelect("destination", place)}
+          />
             </Form.Group>
-
             <Form.Row>
               <Form.Group>
                 <Form.Label>Date</Form.Label> <br />
@@ -95,21 +200,23 @@ const EditTrip = () => {
               </Form.Group>
             </Form.Row>
 
+
             <Form.Row>
-              <Form.Group className="btn-group ml-auto">
-                <Button
-                  variant="dark"
-                  type="submit"
-                  className="col-xs-3 mr-2"
-                  style={{ width: "150px" }}
-                >
-                  Update
-                </Button>
-                <Button variant="dark" type="submit" style={{ width: "150px" }}>
-                  Cancel
-                </Button>
-              </Form.Group>
-            </Form.Row>
+          <Form.Group className="btn-group ml-auto">
+            <Button
+              variant="dark"
+              type="submit"
+              className="col-xs-3 mr-2"
+              style={{ width: "150px" }}
+              onClick={handleSubmit}
+            >
+              Update
+            </Button>
+            <Button variant="dark" type="submit" style={{ width: "150px" }}>
+              Cancel
+            </Button>
+          </Form.Group>
+        </Form.Row>
           </Form>
         </Card.Body>
       </Card>

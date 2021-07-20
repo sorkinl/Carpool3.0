@@ -15,19 +15,22 @@ const MapComponent = () => {
   }
 
   function displayRoute(origin, destination, service) {
-    service.route({
-      origin: origin,
-      destination: destination,
-      travelMode: window.google.maps.TravelMode.DRIVING,
-    });
-    /*  .then((result) => {
-        display.setDirections(result);
+    var directionsRenderer = new window.google.maps.DirectionsRenderer();
+    service
+      .route({
+        origin: origin,
+        destination: destination,
+        travelMode: window.google.maps.TravelMode.DRIVING,
+      })
+      .then((result) => {
+        directionsRenderer.setDirections(result);
       })
       .catch((e) => {
         alert("Could not display directions due to: " + e);
-      }); */
+      });
   }
   useEffect(() => {
+    console.log("here");
     initMap();
   }, []);
 

@@ -1,4 +1,5 @@
 const controller = require("../controllers/trip.controller");
+const { authJwt } = require("../middleware");
 
 module.exports = function (app) {
   app.use(function (req, res, next) {
@@ -9,7 +10,6 @@ module.exports = function (app) {
     next();
   });
 
-  app.post("/api/trip/create", controller.createTrip);
-
-  app.post("/api/trip/find", controller.findTrip);
+  app.post("/api/trip/find", [authJwt.verifyToken], controller.findTrip);
+  app.post("/api/trip/create", [authJwt.verifyToken], controller.createTrip);
 };
