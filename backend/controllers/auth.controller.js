@@ -28,10 +28,10 @@ exports.getUser = (req, res) => {
       uid: decoded.id,
     });
   });
+  //WHY DONT YOU use authJwt 
 };
 
 exports.signup = (req, res) => {
-  console.log("creating user")
   // Save User to Database
   User.create({
     uid: req.body.uid,

@@ -30,6 +30,14 @@ module.exports = (sequelize, Sequelize) => {
       originlong: {
         type: Sequelize.DOUBLE,
       },
+      originpoint: {
+        type: Sequelize.GEOMETRY('POINT'),//store geometry of type point
+        allowNull: false
+      },
+      destpoint: {
+        type: Sequelize.GEOMETRY('POINT'),
+        allowNull: false
+      },
       emptyseats: {
         type: Sequelize.INTEGER,
       },

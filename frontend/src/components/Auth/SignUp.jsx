@@ -77,13 +77,13 @@ export default function SignUp() {
                 onChange={(e) => handleOnChange(e)}
               />
 
-              <label for="inputPassword" className="sr-only">
+              <label for="confirmPassword" className="sr-only">
                 Confirm password
               </label>
               <input
                 type="password"
                 name="confirmPassword"
-                id="inputPassword"
+                id="confirmPassword"
                 className="form-control mb-3"
                 placeholder="Confirm password"
                 required

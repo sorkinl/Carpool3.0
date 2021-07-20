@@ -11,8 +11,6 @@ const app = express();
 
 const User = db.user;
 
-// db.sequelize.sync();
-
 var corsOptions = {
   origin: "http://localhost:8081",
 };

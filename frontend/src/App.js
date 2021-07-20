@@ -58,7 +58,7 @@ function App() {
   const { user, isLoading } = useFindUser();
   const dispatch = useDispatch();
   dispatch(setUser(user));
-
+  console.log(new Date());
   return (
     //<Wrapper apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
     <ReactGoogleMapLoader

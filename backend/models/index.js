@@ -14,9 +14,6 @@ const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
   },
 });
 
-console.log("user: ", config.USER);
-console.log("password: ", config.PASSWORD);
-
 const db = {};
 
 db.Sequelize = Sequelize;
