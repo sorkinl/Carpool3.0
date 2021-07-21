@@ -11,6 +11,8 @@ const app = express();
 
 const User = db.user;
 
+// db.sync({ alter: true });
+
 var corsOptions = {
   origin: "http://localhost:8081",
 };

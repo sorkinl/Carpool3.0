@@ -9,8 +9,16 @@ module.exports = function (app) {
     );
     next();
   });
-  //[authJwt.verifyToken]
-  app.post("/api/trip/findAround", controller.findTripAround);
+
+  app.post(
+    "/api/trip/findAround", 
+    [authJwt.verifyToken], 
+    controller.findTripAround
+  );
   
-  app.post("/api/trip/create", controller.createTrip);
+  app.post(
+    "/api/trip/create", 
+    [authJwt.verifyToken], 
+    controller.createTrip
+  );
 };
