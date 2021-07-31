@@ -39,20 +39,25 @@ exports.createTrip = (req, res) => {
     });
 };
 
-//Find all trips with origin AND destination within 30km of origin and destination inputs
+//Find all trips containing origin AND destination within 30km of origin and destination inputs
 exports.findTripAround = (req, res) => {
   const search = req.body;
   console.log(search);
 
-  //plain query as Sequelize doesn't support ST_Distance_Sphere() or ST_MakePoint() 
+  //Sequelize doesn't support ST_Distance_Sphere() or ST_MakePoint() 
+  // "tripid", ` + `
+  // ST_DistanceSphere(ST_MakePoint(:originlat, :originlong), "originpoint") AS originDistance, ` +
+  // `ST_DistanceSphere(ST_MakePoint(:destlat, :destlong), "destpoint") AS destDistance
   const query = `
     SELECT
-        "tripid", ST_DistanceSphere(ST_MakePoint(:originlat, :originlong), "originpoint") AS originDistance, ST_DistanceSphere(ST_MakePoint(:destlat, :destlong), "destpoint") AS destDistance
+        *
     FROM
         "trips"
     WHERE
-        ST_DistanceSphere(ST_MakePoint(:originlat, :originlong), "originpoint") < :maxDistance AND ST_DistanceSphere(ST_MakePoint(:destlat, :destlong), "destpoint") < :maxDistance
-  `;
+        ST_DistanceSphere(ST_MakePoint(:originlat, :originlong), "originpoint") < :maxDistance ` + 
+        `AND ` + 
+        `ST_DistanceSphere(ST_MakePoint(:destlat, :destlong), "destpoint") < :maxDistance`
+  ;
   Trip.sequelize.query(query, {
     replacements: {
         originlat: parseFloat(search.originlat),

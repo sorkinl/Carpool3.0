@@ -12,7 +12,7 @@ module.exports = function (app) {
 
   app.post(
     "/api/trip/findAround", 
-    [authJwt.verifyToken], 
+    // [authJwt.verifyToken], 
     controller.findTripAround
   );
   

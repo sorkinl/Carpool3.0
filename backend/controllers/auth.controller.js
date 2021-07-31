@@ -28,7 +28,6 @@ exports.getUser = (req, res) => {
       uid: decoded.id,
     });
   });
-  //WHY DONT YOU use authJwt 
 };
 
 exports.signup = (req, res) => {
@@ -69,7 +68,7 @@ exports.signin = (req, res) => {
         });
       }
       var token = jwt.sign({ id: user.dataValues.uid }, config.secret, {
-        expiresIn: 86400, // 24 hours
+        expiresIn: 86400, //24 hours
       });
       res.cookie("token", token, { httpOnly: true });
       res.status(200).send({

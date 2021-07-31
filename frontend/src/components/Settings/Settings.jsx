@@ -41,7 +41,7 @@ export default function Settings() {
     };
     const onSave = (e) => {
         e.preventDefault();
-        //TODO: Save data via Postgre
+        //TODO: Update data in Postgre
         setEditMode(false);
     }
 

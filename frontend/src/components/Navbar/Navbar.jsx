@@ -11,7 +11,8 @@ import AccountIcon from "./AccountIcon";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import SearchBar from "../Search/SearchBar";
+// import SearchBar from "../Search/SearchBar";
+import SearchBar from "../Search/SearchBar"
 
 const NavBar = () => {
   const user = useSelector((state) => state.authReducer.user);

@@ -12,11 +12,15 @@ import { Typeahead } from "react-bootstrap-typeahead";
 import { v4 as uuid } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import TripService from "../../services/trip.service";
 
 const EditTrip = () => {
   const geocoder = new window.google.maps.Geocoder();
+
   const [pickupAddress, setPickupAddress] = useState("");
+
   const [destinationAddress, setDestinationAddress] = useState("");
+
   const [submitValues, setSubmitValues] = useState({
     tripid: uuid(),
     desttitle: "",
@@ -26,12 +30,19 @@ const EditTrip = () => {
     originlat: null,
     originlong: null,
   });
+
   const [date, setDate] = useState(new Date());
+
   const [price, setPrice] = useState("Free, Gas, $$, etc!");
+
   const [customPriceDisabled, setCustomPrice] = useState(true);
+
   const [customPriceValue, setCustomPriceValue] = useState("");
+
   const [predictions, setPredictions] = useState([]);
+
   const user = useSelector((state) => state.authReducer.user);
+  
   //changing dropdownButton resets custom form values
   const onItemClick = (x) => {
     if (x.target.value !== "Custom Input (Cash, etc)") {
@@ -68,7 +79,7 @@ const EditTrip = () => {
   };
   const printPredictions = (predictions, status) => {
     if (
-      status != window.google.maps.places.PlacesServiceStatus.OK ||
+      status !== window.google.maps.places.PlacesServiceStatus.OK ||
       !predictions
     ) {
       console.log(status);
@@ -87,7 +98,7 @@ const EditTrip = () => {
       .then(({ results }) => {
         console.log(results[0]);
 
-        if (field == "pickup") {
+        if (field === "pickup") {
           obj = {
             origintitle: results[0].formatted_address,
             originlat: results[0].geometry.location.lat(),
@@ -109,12 +120,24 @@ const EditTrip = () => {
   };
 
   const handleSubmit = () => {
-    axios.post("api/trip/create", {
-      ...submitValues,
-      date,
-      price,
-      uid: user,
-    });
+    try {
+      TripService.createTrip({
+        submitValues,
+        date,
+        price,
+        uid: user,
+      }).then((response) => {
+        console.log(response);
+      })
+    } catch(e) {
+      console.log(e);
+    }
+    //   axios.post("api/trip/create", {
+    //     ...submitValues,
+    //     date,
+    //     price,
+    //     uid: user,
+    //   });
   };
 
   const autocompleteService =
@@ -128,26 +151,28 @@ const EditTrip = () => {
             <Form.Group controlId="formGridAddressPickUp">
               <Form.Label>Pickup Address</Form.Label>
               <Typeahead
-            placeholder="Current Pickup Address"
-            id="pickupAddress"
-            value={pickupAddress}
-            onInputChange={handlePickupChange}
-            options={predictions}
-            labelKey={(option) => option.description}
-            onChange={(place) => onValueSelect("pickup", place)}
-          />
+                placeholder="Current Pickup Address"
+                id="pickupAddress"
+                value={pickupAddress}
+                onInputChange={handlePickupChange}
+                options={predictions}
+                labelKey={(option) => option.description}
+                onChange={(place) => onValueSelect("pickup", place)}
+                inputProps={{ required: true }}
+              />
             </Form.Group>
             <Form.Group controlId="formGridAddressDestination">
               <Form.Label>Destination Address</Form.Label>
               <Typeahead
-            placeholder="Current Destination Address"
-            id="destinationAddress"
-            value={destinationAddress}
-            onInputChange={handleDestinationChange}
-            options={predictions}
-            labelKey={(option) => option.description}
-            onChange={(place) => onValueSelect("destination", place)}
-          />
+                placeholder="Current Destination Address"
+                id="destinationAddress"
+                value={destinationAddress}
+                onInputChange={handleDestinationChange}
+                options={predictions}
+                labelKey={(option) => option.description}
+                onChange={(place) => onValueSelect("destination", place)}
+                inputProps={{ required: true }}
+              />
             </Form.Group>
             <Form.Row>
               <Form.Group>
